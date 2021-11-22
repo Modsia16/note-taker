@@ -1,24 +1,23 @@
 //dependencies set up
 const express = require('express');
 const path = require('path');
-const router = require('./routes/noteRouter');
-
-
-const PORT = process.env.PORT || 3002;
 const app = express();
+const PORT = process.env.PORT || 3000;
+const noteRouter = require('./routes/noteRouter');
+
 //middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
-app.use('/api/notes', router);
+app.use('/api/notes', noteRouter);
 //server static files
 app.use(express.static('public'));
 
-//homepage
+
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
-//get notes page
+//get routes and db connection
 app.get("/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "public/notes.html"));
 });
@@ -33,5 +32,6 @@ app.get("/notes", function(req, res) {
 //         res.send(data)
 //     });
 // });
+
 
 app.listen(PORT, () => console.log(`Notes app listening on PORT : ${PORT}`));
