@@ -1,71 +1,60 @@
-//work out how delete is working on here for server
-let $noteTitle;
-let noteText;
-let saveNoteBtn;
-let newNoteBtn;
-let noteList;
+//objects to be used
+const $noteTitle = $(".note-title");
+const $noteText = $(".note-textarea");
+const $saveNoteBtn = $(".save-note");
+const $newNoteBtn = $(".new-note");
+const $noteList = $(".list-container .list-group");
 
+//obsolete
+// // Show an element
+// const show = (elem) => {
+//   elem.style.display = 'inline';
+// };
 
-//study why this is the same as the bottom
-if (window.location.pathname === '/notes') {
-  noteTitle = document.querySelector('.note-title');
-  noteText = document.querySelector('.note-textarea');
-  saveNoteBtn = document.querySelector('.save-note');
-  newNoteBtn = document.querySelector('.new-note');
-  noteList = document.querySelectorAll('.list-container .list-group');
-}
-
-// Show an element
-const show = (elem) => {
-  elem.style.display = 'inline';
-};
-
-// Hide an element
-const hide = (elem) => {
-  elem.style.display = 'none';
-};
+// // Hide an element
+// const hide = (elem) => {
+//   elem.style.display = 'none';
+// };
 
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
-const getNotes = () =>
-  fetch('/api/notes', {
+//ajax calls to communicate with the db
+const getNotes = () =>{
+  return $.ajax({
+    url: '/api/notes',
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
   });
+};
 
-const saveNote = (note) =>
-  fetch('/api/notes', {
+const saveNote = (note) => {
+  return $.ajax({
+    url: '/api/notes',
+    data: note,
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(note),
   });
+};
 
-const deleteNote = (id) =>
-  fetch(`/api/notes/${id}`, {
+const deleteNote = (id) => {
+  return $.ajax({
+    url: `/api/notes/${id}`,
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
   });
+};
 
 const renderActiveNote = () => {
-  hide(saveNoteBtn);
+  $saveNoteBtn.hide();
 
   if (activeNote.id) {
-    noteTitle.setAttribute('readonly', true);
-    noteText.setAttribute('readonly', true);
-    noteTitle.value = activeNote.title;
-    noteText.value = activeNote.text;
+    $noteTitle.attr('readonly', true);
+    $noteText.attr('readonly', true);
+    $noteTitle.val(activeNote.title);
+    $noteText.val = (activeNote.text);
   } else {
-    noteTitle.removeAttribute('readonly');
-    noteText.removeAttribute('readonly');
-    noteTitle.value = '';
-    noteText.value = '';
+    $noteTitle.attr('readonly', false);
+    $noteText.attr('readonly', false);
+    $noteTitle.val('');
+    $noteText.val('');
   }
 };
 
@@ -178,7 +167,7 @@ const getAndRenderNotes = () => getNotes().then(renderNoteList);
 
 if (window.location.pathname === '/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
- newNoteBtn.addEventListener('click', handleNewNoteView);
+  newNoteBtn.addEventListener('click', handleNewNoteView);
   noteTitle.addEventListener('keyup', handleRenderSaveBtn);
   noteText.addEventListener('keyup', handleRenderSaveBtn);
 }

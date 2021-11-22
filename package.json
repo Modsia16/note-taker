@@ -1,7 +1,7 @@
 {
   "name": "hweleven",
   "version": "1.0.0",
-  "description": "This application will use an Express.js back end and will save and retrieve note data from a JSON file.\r I WANT to be able to write and save notes\r SO THAT I can organize my thoughts and keep track of tasks I need to complete",
+  "description": "Note-Taker-Express-App",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,7 +15,8 @@
     "ajax": "^0.0.4",
     "db": "^3.3.1",
     "express": "^4.17.1",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "uuid": "^8.3.2"
   },
   "repository": {
     "type": "git",
