@@ -1,50 +1,43 @@
 const noteRouter = require('express').Router();
 const fs = require('fs');
-const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const {
   readFromFile,
   readAndAppend,
-  //writeToFile,
+  writeToFile,
 } = require('../utils/utilShare');
 
-noteRouter.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
-});
-
-noteRouter.get('/:id', (req, res) => {
-    const noteId = req.params.id;
-    readFromFile('./db/db.json').then((data) => {
-        const note = JSON.parse(data).find((note) => note.id === noteId);
-        if (note) {
-            res.json(note);
-        } else {
-            res.status(404).json({ message: 'Note not found' });
-        }
-    });
+noteRouter.get("/", (req, res) => {
+  readFromFile("./db/db.json").then(data => res.json(JSON.parse(data)));
 });
 
 noteRouter.post('/', (req, res) => {
-    const { title, text } = req.body;
+  const { title, text } = req.body;
+
+  if (req.body) {
     const newNote = {
-        id: uuidv4(),
-        title,
-        text,
+      title,
+      text,
+      note_id: uuidv4(),
     };
-    readAndAppend('./db/db.json', newNote).then(() => {
-        res.json(newNote);
-    });
+
+    readAndAppend(newNote, './db/db.json');
+  } else {
+    res.json('Error in posting a new note');
+  }
 });
 
-// noteRouter.delete('/:id', (req, res) => {
-//     const noteId = req.params.id;
-//     readFromFile('./db/db.json').then((data) => {
-//         const notes = JSON.parse(data);
-//         const newNotes = notes.filter((note) => note.id !== noteId);
-//         writeToFile('./db/db.json', newNotes).then(() => {
-//             res.json({ message: 'Note deleted' });
-//         });
-//     });
-// });
+
+noteRouter.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  const notes = JSON.parse(fs.readFileSync('./db/db.json'));
+
+  const noteIndex = notes.findIndex(note => note.note_id === id);
+
+  notes.splice(noteIndex, 1);
+
+  writeToFile('./db/db.json', notes);
+  return res.json(notes);
+});
 
 module.exports = noteRouter;

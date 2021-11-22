@@ -38,18 +38,21 @@ Testing on Postman - not recognizing notes file.
 Got a few post requests as I progressed but need to work out links from rearrangeing pile structure
 for now turn in. 
 Testing was not working so I am expanding the app beyond the server and index.js to break down code to separate files and use a router.
+Separated route and util, a challenge was getting the server to populate the db. Looked a bit more into stringify, parsing and fs.
+The app 
 
 ## Installation 
 
 app will run on heroku
 
-if forked use npm i and node server.js to run on localhost
-npm install dependencies used express uuid
+if forked use npm i and node server.js to run on localhost. Type note, save and refresh page.
+Used express, uuid, fs, path 
 
 ## Link
 
-
+!https://note-taker-09574.herokuapp.com/
 
 ## Demos
 
-![demo](./assets)
+![demo](./assets/note-taker.gif)
+
