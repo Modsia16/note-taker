@@ -5,6 +5,7 @@
   * [Criteria](#criteria)
   * [Build](#build)
   * [Installation](#installation)
+  * [Link](#link)
   * [Demos](#demos)
 
 ## My Mission
@@ -30,13 +31,24 @@ note’s text in the right-hand column.
 Set up some starter code
 Created a server.js, starter folders/files and local host port for listen
 Installed express and fs - test listening on port
-reviewing get and push code
-delete is a work in progress - need to double check if it relates to the pre-provided index.js
-the index.js code looks like it needs some work.
-testing on Postman - not recognizing notes file.
-got a few post requests as I progressed but need to work out links from rearrangeing pile structure
-for now turn in
+Reviewing get and push code
+Delete is a work in progress - need to double check if it relates to the pre-provided index.js
+The index.js code looks like it needs some work.
+Testing on Postman - not recognizing notes file.
+Got a few post requests as I progressed but need to work out links from rearrangeing pile structure
+for now turn in. 
+Testing was not working so I am expanding the app beyond the server and index.js to break down code to separate files and use a router.
+
+## Installation 
+
+app will run on heroku
+
+if forked use npm i and node server.js to run on localhost
+npm install dependencies used express uuid
+
+## Link
 
 
+## Demos
 
 ![demo](./assets)
